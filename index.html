@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Infinite Dream Calculator - All-in-One Edition</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #333;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 24px;
+      text-shadow: 1px 1px 4px black;
+    }
+
+    nav {
+      background: #0d47a1;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 12px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+      transform: scale(1.1);
+    }
+
+    .content {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      color: white;
+    }
+
+    .active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Calculator Styles */
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      margin: 20px auto;
+      color: black;
+    }
+
+    #display {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      text-align: right;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 0 15px;
+      background: #f8f9fa;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      height: 50px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .number { background: #e3f2fd; color: #1976d2; }
+    .operator { background: #ff9800; color: white; }
+    .function { background: #4caf50; color: white; }
+    .memory { background: #9c27b0; color: white; }
+    .equals { background: #f44336; color: white; grid-column: span 2; }
+    .clear { background: #ffc107; color: #333; grid-column: span 2; }
+
+    #dream-output {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0f8ff;
+      border-radius: 10px;
+      min-height: 80px;
+      font-style: italic;
+      color: #555;
+      border-left: 4px solid #4caf50;
+    }
+
+    .blog-post {
+      background: rgba(255,255,255,0.9);
+      color: black;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      background: rgba(0,0,0,0.8);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🚀 Ultimate Infinite Dream Calculator 🚀</header>
+
+  <nav>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('calculator')">Calculator</a>
+    <a href="#" onclick="showPage('blog')">Blog</a>
+    <a href="#" onclick="showPage('about')">About</a>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <section id="home" class="content active">
+    <h1>Welcome to Dream Universe ✨</h1>
+    <p>Enter the world of infinite possibilities! This site combines fun calculation, imagination, and a touch of science-fiction magic. 💫</p>
+    <p>Use the calculator, read blogs, and explore your dreams!</p>
+  </section>
+
+  <!-- CALCULATOR PAGE -->
+  <section id="calculator" class="content">
+    <div class="calculator">
+      <input type="text" id="display" value="0" readonly>
+      <div class="button-grid">
+        <button class="memory" onclick="memoryClear()">MC</button>
+        <button class="memory" onclick="memoryRecall()">MR</button>
+        <button class="memory" onclick="memoryPlus()">M+</button>
+        <button class="memory" onclick="memoryMinus()">M-</button>
+        <button class="function" onclick="appendToDisplay('π')">π</button>
+        <button class="function" onclick="funcSin()">sin</button>
+        <button class="function" onclick="funcCos()">cos</button>
+        <button class="function" onclick="funcTan()">tan</button>
+        <button class="function" onclick="funcLog()">log</button>
+        <button class="function" onclick="funcLn()">ln</button>
+        <button class="function" onclick="funcSqrt()">√x</button>
+        <button class="function" onclick="funcPercent()">%</button>
+        <button class="function" onclick="funcPower()">x^y</button>
+        <button class="function" onclick="funcNegate()">+/-</button>
+        <button class="function" onclick="funcRound(2)">R2</button>
+        <button class="clear" onclick="clearAll()">AC</button>
+        <button class="function" onclick="clearEntry()">CE</button>
+        <button class="operator" onclick="appendToDisplay('/')">/</button>
+        <button class="number" onclick="appendToDisplay('7')">7</button>
+        <button class="number" onclick="appendToDisplay('8')">8</button>
+        <button class="number" onclick="appendToDisplay('9')">9</button>
+        <button class="operator" onclick="appendToDisplay('*')">*</button>
+        <button class="number" onclick="appendToDisplay('4')">4</button>
+        <button class="number" onclick="appendToDisplay('5')">5</button>
+        <button class="number" onclick="appendToDisplay('6')">6</button>
+        <button class="operator" onclick="appendToDisplay('-')">-</button>
+        <button class="number" onclick="appendToDisplay('1')">1</button>
+        <button class="number" onclick="appendToDisplay('2')">2</button>
+        <button class="number" onclick="appendToDisplay('3')">3</button>
+        <button class="operator" onclick="appendToDisplay('+')">+</button>
+        <button class="number" onclick="appendToDisplay('0')" style="grid-column: span 2;">0</button>
+        <button class="number" onclick="appendToDisplay('.')">.</button>
+        <button class="equals" onclick="calculate()">=</button>
+      </div>
+      <div id="dream-output">Ready for calculations? Enter and dream big! ✨</div>
+    </div>
+  </section>
+
+  <!-- BLOG PAGE -->
+  <section id="blog" class="content">
+    <h2>🧠 Dream Blog</h2>
+
+    <div class="blog-post">
+      <h3>The Power of Imagination</h3>
+      <p>Dreams are not just illusions — they are messages from your inner potential. Every calculation can represent a path to your next discovery!</p>
+    </div>
+
+    <div class="blog-post">
+      <h3>Mathematics & Magic</h3>
+      <p>When numbers align, reality shifts. This calculator is designed to remind you that logic and fantasy can coexist beautifully.</p>
+    </div>
+
+    <div class="blog-post">
+      <h3>Infinite Possibilities</h3>
+      <p>Each number you calculate could be the key to unlocking a new dimension of creativity. Never stop dreaming!</p>
+    </div>
+  </section>
+
+  <!-- ABOUT PAGE -->
+  <section id="about" class="content">
+    <h2>About This Project 💡</h2>
+    <p>This website is created by <strong>Azan Abbasi</strong> — a creative mind who blends logic with imagination. The goal: make learning and numbers fun!</p>
+    <p>Inspired by infinite dreams and the beauty of smart design.</p>
+  </section>
+
+  <footer>© 2025 Ultimate Infinite Dream Calculator | Created by Azan Abbasi</footer>
+
+  <script>
+    // Page switching
+    function showPage(id) {
+      document.querySelectorAll('.content').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Calculator logic (copied from your version)
+    let display = document.getElementById('display');
+    let dreamOutput = document.getElementById('dream-output');
+    let memory = 0;
+    let currentInput = '0';
+    let operator = '';
+    let previousInput = '';
+
+    function appendToDisplay(value) {
+      if (currentInput === '0' && value !== '.') currentInput = value;
+      else currentInput += value;
+      display.value = currentInput;
+    }
+
+    function clearAll() {
+      currentInput = '0'; previousInput = ''; operator = '';
+      display.value = '0'; dreamOutput.innerHTML = 'Cleared! Start fresh. ✨';
+    }
+
+    function clearEntry() { currentInput = '0'; display.value = '0'; }
+    function memoryPlus() { memory += parseFloat(currentInput) || 0; }
+    function memoryMinus() { memory -= parseFloat(currentInput) || 0; }
+    function memoryRecall() { currentInput = memory.toString(); display.value = memory; }
+    function memoryClear() { memory = 0; }
+
+    function funcSqrt() { let n = parseFloat(currentInput); currentInput = n>=0?Math.sqrt(n).toString():'Error'; display.value=currentInput; }
+    function funcPercent() { currentInput = (parseFloat(currentInput)/100).toString(); display.value=currentInput; }
+    function funcPower() {
+      if (previousInput === '') { previousInput = currentInput; operator = '^'; currentInput = '0'; display.value='Enter exponent'; }
+      else { let base=parseFloat(previousInput), exp=parseFloat(currentInput); currentInput=Math.pow(base,exp).toString(); display.value=currentInput; previousInput=''; operator=''; calculateDream(); }
+    }
+    function funcNegate(){currentInput=(-parseFloat(currentInput)).toString();display.value=currentInput;}
+    function funcRound(d){let n=parseFloat(currentInput);currentInput=n.toFixed(d).toString();display.value=currentInput;}
+    function funcSin(){let n=parseFloat(currentInput)*Math.PI/180;currentInput=Math.sin(n).toString();display.value=currentInput;}
+    function funcCos(){let n=parseFloat(currentInput)*Math.PI/180;currentInput=Math.cos(n).toString();display.value=currentInput;}
+    function funcTan(){let n=parseFloat(currentInput)*Math.PI/180;currentInput=Math.tan(n).toString();display.value=currentInput;}
+    function funcLog(){let n=parseFloat(currentInput);currentInput=n>0?Math.log10(n).toString():'Error';display.value=currentInput;}
+    function funcLn(){let n=parseFloat(currentInput);currentInput=n>0?Math.log(n).toString():'Error';display.value=currentInput;}
+
+    function calculate(){
+      let n1=parseFloat(previousInput),n2=parseFloat(currentInput),r;
+      if(isNaN(n1)||isNaN(n2))return display.value='Error';
+      switch(operator){
+        case '+':r=n1+n2;break;
+        case '-':r=n1-n2;break;
+        case '*':r=n1*n2;break;
+        case '/':if(n2===0)return display.value='Error (Divide by 0)';r=n1/n2;break;
+        default:return;
+      }
+      currentInput=r.toString();display.value=currentInput;previousInput='';operator='';calculateDream();
+    }
+
+    document.querySelectorAll('.operator').forEach(b=>b.addEventListener('click',function(){
+      let op=this.textContent;if(operator!=='')calculate();previousInput=currentInput;operator=op;currentInput='0';display.value='0';
+    }));
+
+    function calculateDream(){
+      let r=parseFloat(display.value);if(isNaN(r))return;
+      let dreams=[
+        'Tum ek quantum physicist ban gaye ho!',
+        'Magical portal khula, tum wizard ho!',
+        'Result ek treasure key hai!',
+        'Time machine activated!',
+        'Super AI ka IQ unlocked!',
+        'Rocket fuel formula mil gaya!',
+        'Love potion ready!',
+        'Dragon age discovered!',
+        'Lottery win dream!',
+        'Parallel dimension door open!'
+      ];
+      let i=Math.floor(Math.abs(r)%dreams.length);
+      dreamOutput.innerHTML=`<strong>Result: ${r.toFixed(4)}</strong><br><em>${dreams[i]}</em>`;
+    }
+  </script>
+
+</body>
+</html>
